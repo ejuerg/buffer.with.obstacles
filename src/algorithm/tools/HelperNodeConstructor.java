@@ -9,7 +9,8 @@ import com.vividsolutions.jts.geom.Polygon;
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
 
-public class HelperNodeConstructor {
+public class HelperNodeConstructor
+{
 
 	private Coordinate origin;
 	private double radius;
@@ -18,27 +19,31 @@ public class HelperNodeConstructor {
 
 	private int precision = 50;
 
-	public HelperNodeConstructor(Coordinate origin, double radius) {
+	public HelperNodeConstructor(Coordinate origin, double radius)
+	{
 		this.origin = origin;
 		this.radius = radius;
 		this.fact = new GeometryFactory();
-		this.buffer = (Polygon) fact.createPoint(origin).buffer(radius,
-				precision);
+		this.buffer = (Polygon) fact.createPoint(origin).buffer(radius, precision);
 	}
 
-	public Coordinate getOrigin() {
+	public Coordinate getOrigin()
+	{
 		return origin;
 	}
 
-	public void setOrigin(Coordinate origin) {
+	public void setOrigin(Coordinate origin)
+	{
 		this.origin = origin;
 	}
 
-	public double getRadius() {
+	public double getRadius()
+	{
 		return radius;
 	}
 
-	public void setRadius(double radius) {
+	public void setRadius(double radius)
+	{
 		this.radius = radius;
 	}
 
@@ -50,23 +55,25 @@ public class HelperNodeConstructor {
 	 * @param nodes
 	 * @return
 	 */
-	public NodePointCollection getBorderNodes(NodePointCollection nodes) {
+	public NodePointCollection getBorderNodes(NodePointCollection nodes)
+	{
 		NodePointCollection borderNodes = new NodePointCollection();
-		for (int i = 0; i < nodes.size(); i++) {
+		for (int i = 0; i < nodes.size(); i++)
+		{
 			NodePoint current = nodes.get(i);
 			NodePoint oldPrev = current.getPrevNode();
 
 			LineString linePrev = current.getLineToPrev();
 
-			if (linePrev.intersects(buffer.getExteriorRing())) {
-				Geometry intersPrev = linePrev.intersection(buffer
-						.getExteriorRing());
-				if (intersPrev.getNumGeometries() > 1) {
-					constructTwoBorderNodes(borderNodes, current, oldPrev,
-							intersPrev);
-				} else {
-					constructOneBorderNode(borderNodes, current, oldPrev,
-							intersPrev);
+			if (linePrev.intersects(buffer.getExteriorRing()))
+			{
+				Geometry intersPrev = linePrev.intersection(buffer.getExteriorRing());
+				if (intersPrev.getNumGeometries() > 1)
+				{
+					constructTwoBorderNodes(borderNodes, current, oldPrev, intersPrev);
+				} else
+				{
+					constructOneBorderNode(borderNodes, current, oldPrev, intersPrev);
 				}
 			}
 
@@ -74,17 +81,18 @@ public class HelperNodeConstructor {
 		return borderNodes;
 	}
 
-	private void constructOneBorderNode(NodePointCollection borderNodes,
-			NodePoint current, NodePoint oldPrev, Geometry intersPrev) {
+	private void constructOneBorderNode(NodePointCollection borderNodes, NodePoint current, NodePoint oldPrev,
+			Geometry intersPrev)
+	{
 		// one intersection
-		Coordinate inters = intersPrev.getGeometryN(0)
-				.getCoordinate();
-		NodePoint border = new NodePoint(intersPrev
-				.getGeometryN(0).getCoordinate().x, intersPrev
-				.getGeometryN(0).getCoordinate().y);
-		if (current.equals2D(inters) || oldPrev.equals2D(inters)) {
+		Coordinate inters = intersPrev.getGeometryN(0).getCoordinate();
+		NodePoint border = new NodePoint(intersPrev.getGeometryN(0).getCoordinate().x, intersPrev.getGeometryN(0)
+				.getCoordinate().y);
+		if (current.equals2D(inters) || oldPrev.equals2D(inters))
+		{
 			// TODO intersection with either end, do nothing?
-		} else {
+		} else
+		{
 
 			current.setPrevNode(border);
 			border.setPrevNode(oldPrev);
@@ -94,26 +102,27 @@ public class HelperNodeConstructor {
 		}
 	}
 
-	private void constructTwoBorderNodes(NodePointCollection borderNodes,
-			NodePoint current, NodePoint oldPrev, Geometry intersPrev) {
+	private void constructTwoBorderNodes(NodePointCollection borderNodes, NodePoint current, NodePoint oldPrev,
+			Geometry intersPrev)
+	{
 		// two intersections, three or more not possible with line
 		// and circle
 		// this is possible if both nodes lie outside the circle,
 		// but the line
 		// connecting the node goes through the circle
-		NodePoint border0 = new NodePoint(intersPrev
-				.getGeometryN(0).getCoordinate().x, intersPrev
-				.getGeometryN(0).getCoordinate().y);
-		NodePoint border1 = new NodePoint(intersPrev
-				.getGeometryN(1).getCoordinate().x, intersPrev
-				.getGeometryN(1).getCoordinate().y);
+		NodePoint border0 = new NodePoint(intersPrev.getGeometryN(0).getCoordinate().x, intersPrev.getGeometryN(0)
+				.getCoordinate().y);
+		NodePoint border1 = new NodePoint(intersPrev.getGeometryN(1).getCoordinate().x, intersPrev.getGeometryN(1)
+				.getCoordinate().y);
 
 		// find out which node comes first
-		if (border0.distance(current) < border1.distance(current)) {
+		if (border0.distance(current) < border1.distance(current))
+		{
 			current.setPrevNode(border0);
 			border0.setPrevNode(border1);
 			border1.setPrevNode(oldPrev);
-		} else {
+		} else
+		{
 			current.setPrevNode(border1);
 			border1.setPrevNode(border0);
 			border0.setPrevNode(oldPrev);

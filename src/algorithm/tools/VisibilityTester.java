@@ -12,7 +12,8 @@ import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class VisibilityTester {
+public class VisibilityTester
+{
 
 	ObstacleCollection obstacles;
 	Coordinate source;
@@ -20,24 +21,28 @@ public class VisibilityTester {
 
 	private double epsilon = 0.1d;
 
-	public VisibilityTester(ObstacleCollection obs, Coordinate source) {
+	public VisibilityTester(ObstacleCollection obs, Coordinate source)
+	{
 		obstacles = obs;
 		this.source = source;
 		fact = Runner.FACTORY;
 	}
 
-	public Coordinate getSource() {
+	public Coordinate getSource()
+	{
 		return source;
 	}
 
-	public void setSource(Coordinate source) {
+	public void setSource(Coordinate source)
+	{
 		this.source = source;
 	}
 
-	public boolean isVisible(NodePoint coord) {
+	public boolean isVisible(NodePoint coord)
+	{
 		// bordering nodes are always visible from each other
-		if (coord.getPrevNode().equals2D(source)
-				|| coord.getNextNode().equals2D(source)) {
+		if (coord.getPrevNode().equals2D(source) || coord.getNextNode().equals2D(source))
+		{
 			return true;
 		}
 
@@ -47,48 +52,53 @@ public class VisibilityTester {
 
 		// if centroid of line is inside the polygon coord belongs to its not
 		// visible in any case
-		if (coord.getPolygon() != null
-				&& coord.getPolygon().contains(line.getCentroid())) {
+		if (coord.getPolygon() != null && coord.getPolygon().contains(line.getCentroid()))
+		{
 			return false;
 		}
 
-		ObstacleCollection obsSelection = obstacles.queryObstacles(line
-				.getEnvelopeInternal());
+		ObstacleCollection obsSelection = obstacles.queryObstacles(line.getEnvelopeInternal());
 
 		List<Polygon> obsList = obsSelection.getAllObstacles();
 		boolean noIntersection = true;
 		int i = 0;
-		while (noIntersection && i < obsList.size()) {
-			if (obsList.get(i).intersects(line)) {
-				Geometry inters = obsList.get(i).getExteriorRing()
-						.intersection(line);
+		while (noIntersection && i < obsList.size())
+		{
+			if (obsList.get(i).intersects(line))
+			{
+				Geometry inters = obsList.get(i).getExteriorRing().intersection(line);
 				int numInters = inters.getNumGeometries();
-				if (numInters > 0) {
-					for (int j = 0; j < inters.getNumGeometries(); j++) {
-						if (coord.isBorderNode()) {
+				if (numInters > 0)
+				{
+					for (int j = 0; j < inters.getNumGeometries(); j++)
+					{
+						if (coord.isBorderNode())
+						{
 							// because Border nodes are calculated through
 							// intersection with an approximated
 							// circle the are not exact
-							if (source.distance(inters.getGeometryN(j)
-									.getCoordinate()) < epsilon) {
+							if (source.distance(inters.getGeometryN(j).getCoordinate()) < epsilon)
+							{
 								numInters--;
 							}
-							if (coord.distance(inters.getGeometryN(j)
-									.getCoordinate()) < epsilon) {
+							if (coord.distance(inters.getGeometryN(j).getCoordinate()) < epsilon)
+							{
 								numInters--;
 							}
-						} else {
-							if (source.equals2D(inters.getGeometryN(j)
-									.getCoordinate())) {
+						} else
+						{
+							if (source.equals2D(inters.getGeometryN(j).getCoordinate()))
+							{
 								numInters--;
 							}
-							if (coord.equals2D(inters.getGeometryN(j)
-									.getCoordinate())) {
+							if (coord.equals2D(inters.getGeometryN(j).getCoordinate()))
+							{
 								numInters--;
 							}
 						}
 					}
-					if (numInters > 0) {
+					if (numInters > 0)
+					{
 						noIntersection = false;
 					}
 				}

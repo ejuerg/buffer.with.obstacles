@@ -10,28 +10,31 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class BufferWithoutObstacles {
-	
+public class BufferWithoutObstacles
+{
+
 	GeometryFactory fact = Runner.FACTORY;
 
 	private Geometry buff;
-	
-	public BufferWithoutObstacles(Coordinate origin, double radius, ObstacleCollection obs) {
-		
+
+	public BufferWithoutObstacles(Coordinate origin, double radius, ObstacleCollection obs)
+	{
+
 		buff = new GeometryFactory().createPoint(origin).buffer(radius, 100);
-		
+
 		ObstacleCollection obstacles = obs.queryObstacles(buff.getEnvelopeInternal());
-		
+
 		List<Polygon> obsList = obstacles.getAllObstacles();
-		
-		for(int i = 0; i < obsList.size(); i++) {
+
+		for (int i = 0; i < obsList.size(); i++)
+		{
 			buff = buff.difference(obsList.get(i));
-		}		
+		}
 	}
-	
-	public Geometry getResult() {
+
+	public Geometry getResult()
+	{
 		return buff;
 	}
-	
 
 }

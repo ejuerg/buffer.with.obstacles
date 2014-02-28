@@ -1,6 +1,7 @@
 package algorithm.runner;
 
-public class PointInObstacleException extends Exception {
+public class PointInObstacleException extends Exception
+{
 
 	/**
 	 * 

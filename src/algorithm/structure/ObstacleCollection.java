@@ -10,48 +10,59 @@ import com.vividsolutions.jts.index.quadtree.Quadtree;
 
 import algorithm.runner.Runner;
 
-public class ObstacleCollection {
-	
+public class ObstacleCollection
+{
+
 	private Quadtree obstacles;
-	
-	public ObstacleCollection() {
+
+	public ObstacleCollection()
+	{
 		this(new Quadtree());
 	}
-	
-	private ObstacleCollection(Quadtree obstacles) {
+
+	private ObstacleCollection(Quadtree obstacles)
+	{
 		this.obstacles = obstacles;
 	}
-	
-	public void addObstacle(Polygon p) {
+
+	public void addObstacle(Polygon p)
+	{
 		obstacles.insert(p.getEnvelopeInternal(), p);
 	}
-	
-	public ObstacleCollection queryObstacles(Envelope envelope) {
-		List<?> resultList =  obstacles.query(envelope);
+
+	public ObstacleCollection queryObstacles(Envelope envelope)
+	{
+		List<?> resultList = obstacles.query(envelope);
 		ObstacleCollection result = new ObstacleCollection();
-		for(int i = 0; i < resultList.size(); i++) {
+		for (int i = 0; i < resultList.size(); i++)
+		{
 			result.addObstacle((Polygon) resultList.get(i));
 		}
 		return result;
 	}
-	
+
 	@SuppressWarnings("unchecked")
-	public List<Polygon> getAllObstacles() {
+	public List<Polygon> getAllObstacles()
+	{
 		List<Polygon> queryAll = (List<Polygon>) obstacles.queryAll();
 		return queryAll;
 	}
-	
-	public boolean pointInObstacle(Coordinate coord) {
+
+	public boolean pointInObstacle(Coordinate coord)
+	{
 		Point p = Runner.FACTORY.createPoint(coord);
 		List<?> resultList = obstacles.query(p.getEnvelopeInternal());
-		if(resultList != null) {
-			for(int i = 0; i < resultList.size(); i++) {
-				if(((Polygon)resultList.get(i)).contains(p)) {
+		if (resultList != null)
+		{
+			for (int i = 0; i < resultList.size(); i++)
+			{
+				if (((Polygon) resultList.get(i)).contains(p))
+				{
 					return true;
 				}
 			}
 		}
-		
+
 		return false;
 	}
 }

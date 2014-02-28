@@ -17,12 +17,14 @@ import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.Polygon;
 
-public class TestAlgorithm {
+public class TestAlgorithm
+{
 
 	/**
 	 * @param args
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args)
+	{
 		Random rand = new Random();
 		double radius = rand.nextInt(200) + 100;
 		System.out.println("Radius is " + radius);
@@ -30,10 +32,10 @@ public class TestAlgorithm {
 		Vector<Polygon> polys = new Vector<Polygon>();
 		ObstacleCollection obs = new ObstacleCollection();
 
-		PolygonGenerator gen = new PolygonGenerator(new Envelope(
-				new Coordinate(0, 0), new Coordinate(1000, 600)));
+		PolygonGenerator gen = new PolygonGenerator(new Envelope(new Coordinate(0, 0), new Coordinate(1000, 600)));
 
-		for (int i = 0; i < 20; i++) {
+		for (int i = 0; i < 20; i++)
+		{
 			Polygon p = gen.createPolygon();
 			polys.add(p);
 			obs.addObstacle(p);
@@ -41,9 +43,10 @@ public class TestAlgorithm {
 		}
 
 		Vector<VisualPolygon> visPols = new Vector<VisualPolygon>();
-		for (int i = 0; i < polys.size(); i++) {
-			visPols.add(new VisualPolygon(polys.get(i).getExteriorRing()
-					.getCoordinates(), Color.darkGray, Color.lightGray, 1f));
+		for (int i = 0; i < polys.size(); i++)
+		{
+			visPols.add(new VisualPolygon(polys.get(i).getExteriorRing().getCoordinates(), Color.darkGray,
+					Color.lightGray, 1f));
 		}
 
 		Coordinate origin = new Coordinate(500, 300);
@@ -54,7 +57,8 @@ public class TestAlgorithm {
 		// Coordinate origin2 =
 		// PolygonToNodePoints.run(obs.getAllObstacles().get(0)).get(1);;
 
-		try {
+		try
+		{
 			Runner run = new Runner(origin, obs, radius);
 
 			// Runner run2 = new Runner(origin2, obs, radius);
@@ -63,31 +67,34 @@ public class TestAlgorithm {
 			// Geometry result = run.getResult().getResultingGeometry();
 			Geometry result = run.getResult().getResultingGeometry();
 
-			Polygon buff = (Polygon) new GeometryFactory().createPoint(origin)
-					.buffer(radius, 100);
-			visPols.add(new VisualPolygon(buff.getExteriorRing()
-					.getCoordinates(), Color.pink, null, 1f));
+			Polygon buff = (Polygon) new GeometryFactory().createPoint(origin).buffer(radius, 100);
+			visPols.add(new VisualPolygon(buff.getExteriorRing().getCoordinates(), Color.pink, null, 1f));
 
-			if (result != null) {
-				for (int i = 0; i < result.getNumGeometries(); i++) {
-					visPols.add(new VisualPolygon(((Polygon) result
-							.getGeometryN(i)).getExteriorRing()
-							.getCoordinates(), Color.green, Color.yellow, 1f));
+			if (result != null)
+			{
+				for (int i = 0; i < result.getNumGeometries(); i++)
+				{
+					visPols.add(new VisualPolygon(
+							((Polygon) result.getGeometryN(i)).getExteriorRing().getCoordinates(), Color.green,
+							Color.yellow, 1f));
 				}
 			}
-			if (result != null) {
-				for (int i = 0; i < result.getNumGeometries(); i++) {
+			if (result != null)
+			{
+				for (int i = 0; i < result.getNumGeometries(); i++)
+				{
 					Polygon p = (Polygon) result.getGeometryN(i);
 					System.out.println("Fläche: " + p.getArea());
-					for (int j = 0; j < p.getNumInteriorRing(); j++) {
-						visPols.add(new VisualPolygon(p.getInteriorRingN(j)
-								.getCoordinates(), Color.black,
+					for (int j = 0; j < p.getNumInteriorRing(); j++)
+					{
+						visPols.add(new VisualPolygon(p.getInteriorRingN(j).getCoordinates(), Color.black,
 								Color.LIGHT_GRAY, 1f));
 					}
 
 				}
 			}
-		} catch (Exception e) {
+		} catch (Exception e)
+		{
 			e.printStackTrace();
 		}
 		Vector<VisualPoint> visPoints = new Vector<VisualPoint>();
