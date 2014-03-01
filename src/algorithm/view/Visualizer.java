@@ -23,8 +23,8 @@ public class Visualizer extends Applet
 	 * 
 	 */
 	private static final long serialVersionUID = -4781540162102036203L;
-	private Image buffer;
-	private Graphics2D gBuffer;
+	private Image image;
+	private Graphics2D graphics2D;
 
 	// size of screen
 	private int xSize = 1000;
@@ -66,25 +66,51 @@ public class Visualizer extends Applet
 
 	public void paint(Graphics g)
 	{
-		if (buffer == null)
+		if (image == null)
 		{
-			buffer = createImage(this.getSize().width, this.getSize().height);
-			gBuffer = (Graphics2D) buffer.getGraphics();
+			image = createImage(this.getSize().width, this.getSize().height);
+			graphics2D = (Graphics2D) image.getGraphics();
 		}
-		gBuffer.clearRect(0, 0, this.getSize().width, this.getSize().height);
+		
+		clearGraphics();
 
-		// draw all polygons
+		drawPolygons();
+
+		drawPoints();
+
+		g.drawImage(image, 0, 0, this);
+	}
+
+	private void clearGraphics()
+	{
+		graphics2D.clearRect(0, 0, this.getSize().width, this.getSize().height);
+	}
+
+	private void drawPoints()
+	{
+		for (int i = 0; i < points.size(); i++)
+		{
+			Coordinate coord = points.get(i).getPoint();
+			Ellipse2D.Double point = new Ellipse2D.Double((coord.x - xCorrection) / divisor, ySize
+					- ((coord.y - yCorrection) / divisor), 1, 1);
+			graphics2D.setPaint(points.get(i).getOutline());
+			graphics2D.setStroke(points.get(i).getStroke());
+			graphics2D.draw(point);
+			graphics2D.fill(point);
+		}
+	}
+
+	private void drawPolygons()
+	{
 		for (int i = 0; i < polygons.size(); i++)
 		{
-			Coordinate[] coords = polygons.get(i).getCoordinates();
+			VisualPolygon polygon  = polygons.get(i);
+			
+			Coordinate[] coords = polygon.getCoordinates();
 			double[] xCoords = new double[coords.length];
 			double[] yCoords = new double[coords.length];
 
-			for (int j = 0; j < coords.length; j++)
-			{
-				xCoords[j] = (coords[j].x - xCorrection) / divisor;
-				yCoords[j] = ySize - ((coords[j].y - yCorrection) / divisor);
-			}
+			fillCoordinateArrays(coords, xCoords, yCoords);
 
 			GeneralPath.Double polyline = new GeneralPath.Double(GeneralPath.WIND_EVEN_ODD, xCoords.length);
 			polyline.moveTo(xCoords[0], yCoords[0]);
@@ -92,31 +118,23 @@ public class Visualizer extends Applet
 			{
 				polyline.lineTo(xCoords[index], yCoords[index]);
 			}
-			if (polygons.get(i).getFill() != null)
+			if (polygon.getFill() != null)
 			{
-				gBuffer.setColor(polygons.get(i).getFill());
-				gBuffer.fill(polyline);
+				graphics2D.setColor(polygon.getFill());
+				graphics2D.fill(polyline);
 			}
-			gBuffer.setPaint(polygons.get(i).getOutline());
-			gBuffer.setStroke(polygons.get(i).getStroke());
-			gBuffer.draw(polyline);
+			graphics2D.setPaint(polygon.getOutline());
+			graphics2D.setStroke(polygon.getStroke());
+			graphics2D.draw(polyline);
 		}
+	}
 
-		// test points
-		// createPoints();
-
-		// draw all points
-		for (int i = 0; i < points.size(); i++)
+	private void fillCoordinateArrays(Coordinate[] coords, double[] xCoords, double[] yCoords)
+	{
+		for (int j = 0; j < coords.length; j++)
 		{
-			Coordinate coord = points.get(i).getPoint();
-			Ellipse2D.Double point = new Ellipse2D.Double((coord.x - xCorrection) / divisor, ySize
-					- ((coord.y - yCorrection) / divisor), 1, 1);
-			gBuffer.setPaint(points.get(i).getOutline());
-			gBuffer.setStroke(points.get(i).getStroke());
-			gBuffer.draw(point);
-			gBuffer.fill(point);
+			xCoords[j] = (coords[j].x - xCorrection) / divisor;
+			yCoords[j] = ySize - ((coords[j].y - yCorrection) / divisor);
 		}
-
-		g.drawImage(buffer, 0, 0, this);
 	}
 }
