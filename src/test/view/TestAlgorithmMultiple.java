@@ -15,6 +15,7 @@ import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.Polygon;
+import com.vividsolutions.jts.io.WKTWriter;
 
 public class TestAlgorithmMultiple
 {
@@ -36,8 +37,9 @@ public class TestAlgorithmMultiple
 			Polygon p = gen.createPolygon();
 			polys.add(p);
 			obs.addObstacle(p);
-
 		}
+
+		writePolygons(polys);
 
 		Vector<VisualPolygon> visPols = new Vector<VisualPolygon>();
 		Vector<VisualPolygon> visPols2 = new Vector<VisualPolygon>();
@@ -121,5 +123,15 @@ public class TestAlgorithmMultiple
 
 		new Visualizer(visPols, visPoints);
 		new Visualizer(visPols2, visPoints);
+	}
+
+	private static void writePolygons(Vector<Polygon> polys)
+	{
+		WKTWriter wktWriter = new WKTWriter();
+
+		for (Polygon polygon : polys)
+		{
+			System.out.println(wktWriter.write(polygon));
+		}
 	}
 }
