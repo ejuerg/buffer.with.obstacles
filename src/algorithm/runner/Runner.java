@@ -22,7 +22,7 @@ public class Runner
 {
 
 	NodePointCollection nodes;
-	ObstacleCollection obs;
+	ObstacleCollection obstacles;
 	Coordinate origin;
 	double radius;
 
@@ -51,7 +51,7 @@ public class Runner
 		this.nodes = new NodePointCollection();
 		this.origin = origin;
 		this.radius = radius;
-		this.obs = obs.queryObstacles(new Envelope(origin.x - radius, origin.x + radius, origin.y - radius, origin.y
+		this.obstacles = obs.queryObstacles(new Envelope(origin.x - radius, origin.x + radius, origin.y - radius, origin.y
 				+ radius));
 
 		if (!obs.pointInObstacle(origin))
@@ -100,7 +100,7 @@ public class Runner
 
 	private void getNodePoints()
 	{
-		List<Polygon> polyList = obs.getAllObstacles();
+		List<Polygon> polyList = obstacles.getAllObstacles();
 
 		for (int i = 0; i < polyList.size(); i++)
 		{
@@ -111,7 +111,7 @@ public class Runner
 	public NodePointCollection getVisibleNodes()
 	{
 		NodePointCollection visibleNodes = new NodePointCollection();
-		VisibilityTester visTest = new VisibilityTester(obs, origin);
+		VisibilityTester visTest = new VisibilityTester(obstacles, origin);
 		for (int i = 0; i < nodes.size(); i++)
 		{
 			if (visTest.isVisible(nodes.get(i)))
@@ -127,7 +127,7 @@ public class Runner
 		NodePointCollection allNodes = new NodePointCollection();
 		allNodes.addCollection(nodes);
 		allNodes.addCollection(shadowNodes);
-		VisibilityTester vis = new VisibilityTester(obs, origin);
+		VisibilityTester vis = new VisibilityTester(obstacles, origin);
 		for (int i = 0; i < allNodes.size(); i++)
 		{
 			NodePoint current = allNodes.get(i);
@@ -283,7 +283,7 @@ public class Runner
 							if (!finished.isNodeDone(current, radius - distance))
 							{
 								finished.addNode(current, radius - distance);
-								Runner recRun = new Runner(current, obs, radius - distance, finished);
+								Runner recRun = new Runner(current, obstacles, radius - distance, finished);
 								this.result.addGeometry(recRun.getResult().getPolygon());
 							}
 						}
