@@ -8,7 +8,7 @@ import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
 import algorithm.structure.ObstacleCollection;
 import algorithm.tools.HelperNodeConstructor;
-import algorithm.tools.PolygonToNodePoints;
+import algorithm.tools.NodePointUtils;
 import algorithm.tools.ShadowNodeConstructor;
 import algorithm.tools.VisibilityTester;
 import algorithm.view.VisualPoint;
@@ -55,7 +55,7 @@ public class TestShadowNode
 		NodePointCollection nodes = new NodePointCollection();
 		for (int i = 0; i < polys.size(); i++)
 		{
-			nodes.addCollection(PolygonToNodePoints.run(polys.get(i)));
+			nodes.addCollection(NodePointUtils.generateNodePoints(polys.get(i)));
 		}
 
 		Coordinate source = new Coordinate(500, 300);

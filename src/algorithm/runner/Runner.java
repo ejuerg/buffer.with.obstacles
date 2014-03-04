@@ -7,7 +7,7 @@ import algorithm.structure.NodePointCollection;
 import algorithm.structure.ObstacleCollection;
 import algorithm.structure.WalkAroundBuffer;
 import algorithm.tools.HelperNodeConstructor;
-import algorithm.tools.PolygonToNodePoints;
+import algorithm.tools.NodePointUtils;
 import algorithm.tools.ShadowNodeConstructor;
 import algorithm.tools.VisibilityTester;
 
@@ -56,7 +56,7 @@ public class Runner
 
 		if (!obs.pointInObstacle(origin))
 		{
-			this.getNodePoints();
+			this.findNodePoints();
 
 			HelperNodeConstructor helpNoder = new HelperNodeConstructor(origin, radius);
 
@@ -68,9 +68,9 @@ public class Runner
 
 			nodes.addCollection(helperNodes);
 
-			ShadowNodeConstructor shadowNoder = new ShadowNodeConstructor(origin, nodes, radius);
+			ShadowNodeConstructor shadowNodeConstructor = new ShadowNodeConstructor(origin, nodes, radius);
 
-			shadowNodes = shadowNoder.getAllShadowNodes(obs);
+			shadowNodes = shadowNodeConstructor.getAllShadowNodes(obs);
 
 			constructAlt();
 
@@ -98,13 +98,13 @@ public class Runner
 		return shadowNodes;
 	}
 
-	private void getNodePoints()
+	private void findNodePoints()
 	{
 		List<Polygon> polyList = obstacles.getAllObstacles();
 
 		for (int i = 0; i < polyList.size(); i++)
 		{
-			nodes.addCollection(PolygonToNodePoints.run(polyList.get(i)));
+			nodes.addCollection(NodePointUtils.generateNodePoints(polyList.get(i)));
 		}
 	}
 
@@ -267,23 +267,23 @@ public class Runner
 		if (visible.size() > 0)
 		{
 			visible = visible.sortByAngle(origin);
-			NodePoint current = null;
+			NodePoint currentNode = null;
 			for (int i = 0; i < visible.size(); i++)
 			{
-				current = visible.get(i);
+				currentNode = visible.get(i);
 
-				if (current.hasShadow())
+				if (currentNode.hasShadow())
 				{
-					double distance = current.distance(origin);
+					double distance = currentNode.distance(origin);
 
 					try
 					{
 						if (radius - distance > epsilon)
 						{
-							if (!finished.isNodeDone(current, radius - distance))
+							if (!finished.isNodeDone(currentNode, radius - distance))
 							{
-								finished.addNode(current, radius - distance);
-								Runner recRun = new Runner(current, obstacles, radius - distance, finished);
+								finished.addNode(currentNode, radius - distance);
+								Runner recRun = new Runner(currentNode, obstacles, radius - distance, finished);
 								this.result.addGeometry(recRun.getResult().getPolygon());
 							}
 						}

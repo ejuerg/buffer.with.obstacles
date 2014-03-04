@@ -8,7 +8,7 @@ import test.util.PolygonGenerator;
 
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
-import algorithm.tools.PolygonToNodePoints;
+import algorithm.tools.NodePointUtils;
 import algorithm.view.VisualPoint;
 import algorithm.view.VisualPolygon;
 import algorithm.view.Visualizer;
@@ -50,9 +50,9 @@ public class TestPolygonToNodePoints
 		Polygon buff = (Polygon) point.buffer(250d, 20);
 
 		// go and get nodes of polygons
-		NodePointCollection nodes1 = PolygonToNodePoints.run(p1);
-		NodePointCollection nodes2 = PolygonToNodePoints.run(p2);
-		NodePointCollection nodes3 = PolygonToNodePoints.run(buff);
+		NodePointCollection nodes1 = NodePointUtils.generateNodePoints(p1);
+		NodePointCollection nodes2 = NodePointUtils.generateNodePoints(p2);
+		NodePointCollection nodes3 = NodePointUtils.generateNodePoints(buff);
 
 		// Only select nodes close to point
 		nodes1 = nodes1.getNodesInCircle(point.getCoordinate(), 250d);

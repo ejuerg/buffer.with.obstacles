@@ -8,7 +8,7 @@ import test.util.PolygonGenerator;
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
 import algorithm.structure.ObstacleCollection;
-import algorithm.tools.PolygonToNodePoints;
+import algorithm.tools.NodePointUtils;
 import algorithm.tools.VisibilityTester;
 import algorithm.view.VisualPoint;
 import algorithm.view.VisualPolygon;
@@ -50,7 +50,7 @@ public class TestPolygonGenerator
 		NodePointCollection nodes = new NodePointCollection();
 		for (int i = 0; i < polys.size(); i++)
 		{
-			nodes.addCollection(PolygonToNodePoints.run(polys.get(i)));
+			nodes.addCollection(NodePointUtils.generateNodePoints(polys.get(i)));
 		}
 
 		Coordinate source = new Coordinate(500, 300);

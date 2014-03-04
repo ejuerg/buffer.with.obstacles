@@ -6,7 +6,7 @@ import com.vividsolutions.jts.geom.Polygon;
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
 
-public class PolygonToNodePoints
+public class NodePointUtils
 {
 
 	/**
@@ -16,7 +16,7 @@ public class PolygonToNodePoints
 	 *            Polygon to make NodePoints from
 	 * @return A NodePointCollection containing the resulting nodes
 	 */
-	public static NodePointCollection run(Polygon p)
+	public static NodePointCollection generateNodePoints(Polygon p)
 	{
 		Coordinate[] coords = p.getExteriorRing().getCoordinates();
 
