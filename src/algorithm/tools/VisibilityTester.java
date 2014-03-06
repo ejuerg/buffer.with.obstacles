@@ -17,7 +17,7 @@ public class VisibilityTester
 
 	ObstacleCollection obstacles;
 	Coordinate source;
-	GeometryFactory fact;
+	GeometryFactory factory;
 
 	private double epsilon = 0.1d;
 
@@ -25,7 +25,7 @@ public class VisibilityTester
 	{
 		obstacles = obs;
 		this.source = source;
-		fact = Runner.FACTORY;
+		factory = Runner.FACTORY;
 	}
 
 	public Coordinate getSource()
@@ -48,11 +48,13 @@ public class VisibilityTester
 
 		Coordinate[] coords = new Coordinate[] { source, coord };
 
-		LineString line = fact.createLineString(coords);
+		LineString line = factory.createLineString(coords);
 
+		
+		Polygon polygon = coord.getPolygon();
 		// if centroid of line is inside the polygon coord belongs to its not
 		// visible in any case
-		if (coord.getPolygon() != null && coord.getPolygon().contains(line.getCentroid()))
+		if (polygon != null && polygon.contains(line.getCentroid()))
 		{
 			return false;
 		}
@@ -76,7 +78,7 @@ public class VisibilityTester
 						{
 							// because Border nodes are calculated through
 							// intersection with an approximated
-							// circle the are not exact
+							// circle they are not exact
 							if (source.distance(inters.getGeometryN(j).getCoordinate()) < epsilon)
 							{
 								numInters--;
