@@ -50,7 +50,6 @@ public class VisibilityTester
 
 		LineString line = factory.createLineString(coords);
 
-		
 		Polygon polygon = coord.getPolygon();
 		// if centroid of line is inside the polygon coord belongs to its not
 		// visible in any case
