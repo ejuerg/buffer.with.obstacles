@@ -17,12 +17,12 @@ public class NodePointUtilsTest
 {
 
 	private GeometryFactory factory;
-	
+
 	private Coordinate[] coordinatesTriangle;
 	private Coordinate firstCoordinate;
 	private Coordinate secondCoordinate;
 	private Coordinate thirdCoordinate;
-	
+
 	private Polygon triangle;
 	private NodePointCollection resultTriangle;
 
@@ -30,16 +30,16 @@ public class NodePointUtilsTest
 	public void setUp() throws Exception
 	{
 		factory = new GeometryFactory();
-		
-		firstCoordinate = new Coordinate(0,0);
-		secondCoordinate = new Coordinate(0,1);
-		thirdCoordinate = new Coordinate(1,0);
-		
-		coordinatesTriangle = new Coordinate[] { firstCoordinate, secondCoordinate, thirdCoordinate, firstCoordinate};
-		
+
+		firstCoordinate = new Coordinate(0, 0);
+		secondCoordinate = new Coordinate(0, 1);
+		thirdCoordinate = new Coordinate(1, 0);
+
+		coordinatesTriangle = new Coordinate[] { firstCoordinate, secondCoordinate, thirdCoordinate, firstCoordinate };
+
 		triangle = factory.createPolygon(coordinatesTriangle);
-		
-		resultTriangle = NodePointUtils.generateNodePoints(triangle);		
+
+		resultTriangle = NodePointUtils.generateNodePoints(triangle);
 	}
 
 	@Test
@@ -47,49 +47,46 @@ public class NodePointUtilsTest
 	{
 		assertTrue(resultTriangle.size() == 3);
 	}
-	
+
 	@Test
-	public void testTriangleFirstCoord() 
+	public void testTriangleFirstCoord()
 	{
 		assertTrue(resultTriangle.get(0).equals(firstCoordinate));
 	}
-	
+
 	@Test
-	public void testTriangleSecondCoord() 
+	public void testTriangleSecondCoord()
 	{
 		assertTrue(resultTriangle.get(1).equals(secondCoordinate));
 	}
-	
+
 	@Test
-	public void testTriangleThirdCoord() 
+	public void testTriangleThirdCoord()
 	{
 		assertTrue(resultTriangle.get(2).equals(thirdCoordinate));
 	}
-	
+
 	@Test
 	public void testTriangleFirstNodeSequence()
 	{
 		NodePoint node = resultTriangle.get(0);
-		
+
 		assertTrue(node.getNextNode().equals(secondCoordinate) && node.getPrevNode().equals(thirdCoordinate));
 	}
-	
+
 	@Test
 	public void testTriangleSecondNodeSequence()
 	{
 		NodePoint node = resultTriangle.get(1);
-		
+
 		assertTrue(node.getNextNode().equals(thirdCoordinate) && node.getPrevNode().equals(firstCoordinate));
 	}
-	
+
 	@Test
 	public void testTriangleThirdNodeSequence()
 	{
 		NodePoint node = resultTriangle.get(2);
-		
+
 		assertTrue(node.getNextNode().equals(firstCoordinate) && node.getPrevNode().equals(secondCoordinate));
 	}
-	
-	
-	
 }
