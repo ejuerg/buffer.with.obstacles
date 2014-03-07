@@ -67,32 +67,32 @@ public class VisibilityTester
 		{
 			if (obsList.get(i).intersects(line))
 			{
-				Geometry inters = obsList.get(i).getExteriorRing().intersection(line);
-				int numInters = inters.getNumGeometries();
+				Geometry intersections = obsList.get(i).getExteriorRing().intersection(line);
+				int numInters = intersections.getNumGeometries();
 				if (numInters > 0)
 				{
-					for (int j = 0; j < inters.getNumGeometries(); j++)
+					for (int j = 0; j < intersections.getNumGeometries(); j++)
 					{
 						if (coord.isBorderNode())
 						{
 							// because Border nodes are calculated through
 							// intersection with an approximated
 							// circle they are not exact
-							if (source.distance(inters.getGeometryN(j).getCoordinate()) < epsilon)
+							if (source.distance(intersections.getGeometryN(j).getCoordinate()) < epsilon)
 							{
 								numInters--;
 							}
-							if (coord.distance(inters.getGeometryN(j).getCoordinate()) < epsilon)
+							if (coord.distance(intersections.getGeometryN(j).getCoordinate()) < epsilon)
 							{
 								numInters--;
 							}
 						} else
 						{
-							if (source.equals2D(inters.getGeometryN(j).getCoordinate()))
+							if (source.equals2D(intersections.getGeometryN(j).getCoordinate()))
 							{
 								numInters--;
 							}
-							if (coord.equals2D(inters.getGeometryN(j).getCoordinate()))
+							if (coord.equals2D(intersections.getGeometryN(j).getCoordinate()))
 							{
 								numInters--;
 							}
