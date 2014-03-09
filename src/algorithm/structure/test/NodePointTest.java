@@ -1,12 +1,15 @@
 package algorithm.structure.test;
 
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import algorithm.structure.NodePoint;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.GeometryFactory;
+import com.vividsolutions.jts.geom.LineString;
 
 public class NodePointTest
 {
@@ -15,24 +18,41 @@ public class NodePointTest
 	private NodePoint previousNodePoint;
 	private NodePoint replacementNodePoint;
 
+	private GeometryFactory factory;
+
 	@Before
 	public void setUp() throws Exception
 	{
 		nextNodePoint = new NodePoint(1, 1);
 		previousNodePoint = new NodePoint(-1, -1);
 		replacementNodePoint = new NodePoint(0, 5);
+
+		factory = new GeometryFactory();
 	}
 
 	@Test
 	public void testGetLineToPrev()
 	{
-		fail("Not yet implemented");
+		NodePoint nodePoint = new NodePoint(0, 0, previousNodePoint, nextNodePoint, null);
+
+		LineString line = nodePoint.getLineToPreviousNode();
+
+		LineString comparisonLine = factory
+				.createLineString(new Coordinate[] { previousNodePoint, new NodePoint(0, 0) });
+
+		assertTrue(line.equals(comparisonLine));
 	}
 
 	@Test
 	public void testGetLineToNext()
 	{
-		fail("Not yet implemented");
+		NodePoint nodePoint = new NodePoint(0, 0, previousNodePoint, nextNodePoint, null);
+
+		LineString line = nodePoint.getLineToNextNode();
+
+		LineString comparisonLine = factory.createLineString(new Coordinate[] { new NodePoint(0, 0), nextNodePoint });
+
+		assertTrue(line.equals(comparisonLine));
 	}
 
 	@Test
