@@ -71,7 +71,7 @@ public class NodePointUtilsTest
 	{
 		NodePoint node = resultTriangle.get(0);
 
-		assertTrue(node.getNextNode().equals(secondCoordinate) && node.getPrevNode().equals(thirdCoordinate));
+		assertTrue(node.getNextNode().equals(secondCoordinate) && node.getPreviousNode().equals(thirdCoordinate));
 	}
 
 	@Test
@@ -79,7 +79,7 @@ public class NodePointUtilsTest
 	{
 		NodePoint node = resultTriangle.get(1);
 
-		assertTrue(node.getNextNode().equals(thirdCoordinate) && node.getPrevNode().equals(firstCoordinate));
+		assertTrue(node.getNextNode().equals(thirdCoordinate) && node.getPreviousNode().equals(firstCoordinate));
 	}
 
 	@Test
@@ -87,6 +87,6 @@ public class NodePointUtilsTest
 	{
 		NodePoint node = resultTriangle.get(2);
 
-		assertTrue(node.getNextNode().equals(firstCoordinate) && node.getPrevNode().equals(secondCoordinate));
+		assertTrue(node.getNextNode().equals(firstCoordinate) && node.getPreviousNode().equals(secondCoordinate));
 	}
 }

@@ -63,7 +63,7 @@ public class TestHelperNodes
 
 		for (int i = 0; i < helpNodes.size(); i++)
 		{
-			visPoints.add(new VisualPoint(helpNodes.get(i).getPrevNode(), Color.blue));
+			visPoints.add(new VisualPoint(helpNodes.get(i).getPreviousNode(), Color.blue));
 			visPoints.add(new VisualPoint(helpNodes.get(i).getNextNode(), Color.red));
 		}
 		for (int i = 0; i < helpNodes.size(); i++)

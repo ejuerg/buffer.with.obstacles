@@ -45,7 +45,7 @@ public class NodePointUtils
 			NodePoint prev = nodes.get(prevI);
 			NodePoint current = nodes.get(i);
 
-			current.setPrevNode(prev);
+			current.setPreviousNode(prev);
 			current.setPolygon(p);
 			prevI = i;
 		}

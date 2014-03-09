@@ -64,13 +64,13 @@ public class TestPolygonToNodePoints
 		{
 			NodePoint current = nodes1.get(i);
 			vNode.add(new VisualPoint(current.getNextNode(), Color.pink));
-			vNode.add(new VisualPoint(current.getPrevNode(), Color.yellow));
+			vNode.add(new VisualPoint(current.getPreviousNode(), Color.yellow));
 		}
 		for (int i = 0; i < nodes2.size(); i++)
 		{
 			NodePoint current = nodes2.get(i);
 			vNode.add(new VisualPoint(current.getNextNode(), Color.pink));
-			vNode.add(new VisualPoint(current.getPrevNode(), Color.yellow));
+			vNode.add(new VisualPoint(current.getPreviousNode(), Color.yellow));
 		}
 
 		// make visual points from nodes

@@ -132,7 +132,7 @@ public class Runner
 		{
 			NodePoint current = allNodes.get(i);
 			NodePoint next = current.getNextNode();
-			NodePoint prev = current.getPrevNode();
+			NodePoint prev = current.getPreviousNode();
 			if (vis.isVisible(next) && current.isShadow())
 			{
 				result.addTriangle(origin, next, current);
@@ -176,7 +176,7 @@ public class Runner
 						&& ((prev.hasShadow() && prev.getShadowNode().isBorderNode()) || prev.isBorderNode()))
 				{
 
-					if (prev.getPrevNode().equals2D(current) || prev.getNextNode().equals2D(current))
+					if (prev.getPreviousNode().equals2D(current) || prev.getNextNode().equals2D(current))
 					{
 						// a segment with a border node on both ends
 						// we already handled this - it is a triangle
@@ -189,14 +189,14 @@ public class Runner
 						&& (prev.hasShadow() && !prev.getShadowNode().isBorderNode()))
 				{
 					// We may need a triangle
-					if (current.getPrevNode().equals(prev) || current.getNextNode().equals(prev))
+					if (current.getPreviousNode().equals(prev) || current.getNextNode().equals(prev))
 					{
 						// no triangle needed
-					} else if (current.getShadowNode().getPrevNode().equals(prev)
+					} else if (current.getShadowNode().getPreviousNode().equals(prev)
 							|| current.getShadowNode().getNextNode().equals(prev))
 					{
 						// no triangle
-					} else if (prev.getShadowNode().getPrevNode().equals(current)
+					} else if (prev.getShadowNode().getPreviousNode().equals(current)
 							|| prev.getShadowNode().getNextNode().equals(current))
 					{
 						// no triangle

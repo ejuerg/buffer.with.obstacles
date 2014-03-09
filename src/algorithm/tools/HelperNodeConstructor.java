@@ -61,9 +61,9 @@ public class HelperNodeConstructor
 		for (int i = 0; i < nodes.size(); i++)
 		{
 			NodePoint current = nodes.get(i);
-			NodePoint oldPrev = current.getPrevNode();
+			NodePoint oldPrev = current.getPreviousNode();
 
-			LineString linePrev = current.getLineToPrev();
+			LineString linePrev = current.getLineToPreviousNode();
 
 			if (linePrev.intersects(buffer.getExteriorRing()))
 			{
@@ -94,8 +94,8 @@ public class HelperNodeConstructor
 		} else
 		{
 
-			current.setPrevNode(border);
-			border.setPrevNode(oldPrev);
+			current.setPreviousNode(border);
+			border.setPreviousNode(oldPrev);
 			borderNodes.addPoint(border);
 			border.setPolygon(current.getPolygon());
 			border.setBorderNode(true);
@@ -118,14 +118,14 @@ public class HelperNodeConstructor
 		// find out which node comes first
 		if (border0.distance(current) < border1.distance(current))
 		{
-			current.setPrevNode(border0);
-			border0.setPrevNode(border1);
-			border1.setPrevNode(oldPrev);
+			current.setPreviousNode(border0);
+			border0.setPreviousNode(border1);
+			border1.setPreviousNode(oldPrev);
 		} else
 		{
-			current.setPrevNode(border1);
-			border1.setPrevNode(border0);
-			border0.setPrevNode(oldPrev);
+			current.setPreviousNode(border1);
+			border1.setPreviousNode(border0);
+			border0.setPreviousNode(oldPrev);
 		}
 		// add to collection
 		border0.setPolygon(current.getPolygon());

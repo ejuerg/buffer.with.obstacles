@@ -58,7 +58,7 @@ public class ShadowNodeConstructor
 		// find closest intersection by testing against all segments
 		for (int i = 0; i < nodes.size(); i++)
 		{
-			LineString segmentNext = nodes.get(i).getLineToNext();
+			LineString segmentNext = nodes.get(i).getLineToNextNode();
 			if (segmentNext.intersects(ray))
 			{
 				Coordinate intersection = segmentNext.intersection(ray).getCoordinate();
@@ -109,7 +109,7 @@ public class ShadowNodeConstructor
 				}
 				node.setShadowNode(result);
 				result.setNextNode(next);
-				result.setPrevNode(prev);
+				result.setPreviousNode(prev);
 				result.setPolygon(polygon);
 				result.setShadow(true);
 				return result;
@@ -118,7 +118,7 @@ public class ShadowNodeConstructor
 		{
 			node.setShadowNode(result);
 			result.setNextNode(next);
-			result.setPrevNode(prev);
+			result.setPreviousNode(prev);
 			result.setPolygon(polygon);
 			result.setShadow(true);
 			return result;
@@ -136,7 +136,7 @@ public class ShadowNodeConstructor
 		{
 			NodePoint current = nodes.get(i);
 			NodePoint next = current.getNextNode();
-			NodePoint prev = current.getPrevNode();
+			NodePoint prev = current.getPreviousNode();
 			if (vis.isVisible(current) && (!vis.isVisible(next) || !vis.isVisible(prev)))
 			{
 				NodePoint inters = this.getShadowNode(current, vis);

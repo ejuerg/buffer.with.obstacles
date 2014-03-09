@@ -41,7 +41,7 @@ public class VisibilityTester
 	public boolean isVisible(NodePoint coord)
 	{
 		// bordering nodes are always visible from each other
-		if (coord.getPrevNode().equals2D(source) || coord.getNextNode().equals2D(source))
+		if (coord.getPreviousNode().equals2D(source) || coord.getNextNode().equals2D(source))
 		{
 			return true;
 		}

@@ -17,11 +17,11 @@ public class NodePoint extends Coordinate
 
 	private Polygon polygon;
 	private NodePoint nextNode;
-	private NodePoint prevNode;
+	private NodePoint previousNode;
 	private NodePoint shadowNode;
 	private boolean isBorderNode = false;
 	private boolean isShadowNode = false;
-	private static GeometryFactory fact;
+	private static GeometryFactory factory;
 
 	public NodePoint(double x, double y)
 	{
@@ -32,12 +32,12 @@ public class NodePoint extends Coordinate
 	{
 		this(x, y);
 		this.setNextNode(next);
-		this.setPrevNode(prev);
+		this.setPreviousNode(prev);
 		this.polygon = p;
 
-		if (fact == null)
+		if (factory == null)
 		{
-			fact = Runner.FACTORY;
+			factory = Runner.FACTORY;
 		}
 	}
 
@@ -67,47 +67,47 @@ public class NodePoint extends Coordinate
 		
 		if (nextNode.getNextNode() == null || !nextNode.getNextNode().equals(this))
 		{
-			nextNode.setPrevNode(this);
+			nextNode.setPreviousNode(this);
 		}
 	}
 
-	public NodePoint getPrevNode()
+	public NodePoint getPreviousNode()
 	{
-		return prevNode;
+		return previousNode;
 	}
 
-	public void setPrevNode(NodePoint prevNode)
+	public void setPreviousNode(NodePoint previousNode)
 	{
-		this.prevNode = prevNode;
+		this.previousNode = previousNode;
 		
-		if(prevNode == null)  
+		if(previousNode == null)  
 		{
 			return;
 		}
 		
-		if (prevNode.getNextNode() == null || !prevNode.getNextNode().equals(this))
+		if (previousNode.getNextNode() == null || !previousNode.getNextNode().equals(this))
 		{
-			prevNode.setNextNode(this);
+			previousNode.setNextNode(this);
 		}
 	}
 
-	public LineString getLineToPrev()
+	public LineString getLineToPreviousNode()
 	{
-		return getLine(this, this.getPrevNode());
+		return createLine(this, this.getPreviousNode());
 	}
 
-	public LineString getLineToNext()
+	public LineString getLineToNextNode()
 	{
-		return getLine(this, this.getNextNode());
+		return createLine(this, this.getNextNode());
 	}
 
-	private static LineString getLine(Coordinate from, Coordinate to)
+	private static LineString createLine(Coordinate from, Coordinate to)
 	{
-		if (fact == null)
+		if (factory == null)
 		{
-			fact = new GeometryFactory();
+			factory = new GeometryFactory();
 		}
-		return fact.createLineString(new Coordinate[] { to, from });
+		return factory.createLineString(new Coordinate[] { to, from });
 	}
 
 	public NodePoint getShadowNode()
@@ -147,7 +147,7 @@ public class NodePoint extends Coordinate
 
 	public boolean hasNeighbour(Coordinate other)
 	{
-		return (this.getPrevNode().equals2D(other) || this.getNextNode().equals2D(other));
+		return (this.getPreviousNode().equals2D(other) || this.getNextNode().equals2D(other));
 	}
 
 }
