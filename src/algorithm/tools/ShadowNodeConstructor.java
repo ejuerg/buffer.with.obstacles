@@ -50,36 +50,22 @@ public class ShadowNodeConstructor
 		LineString ray = fact.createLineString(new Coordinate[] { node, new Coordinate(circleX, circleY) });
 
 		// The closest intersection is the result
-		Coordinate closestInters = new Coordinate(0, 0);
-
-		double minDistance = Double.MAX_VALUE;
+		Coordinate closestInters = null;
 		int minIndex = -1;
 
-		// find closest intersection by testing against all segments
-		for (int i = 0; i < nodes.size(); i++)
-		{
-			LineString segmentNext = nodes.get(i).getLineToNextNode();
-			if (segmentNext.intersects(ray))
-			{
-				Coordinate intersection = segmentNext.intersection(ray).getCoordinate();
-				if (!node.equals2D(intersection))
-				{
-					double distance = intersection.distance(origin);
-					if (distance < minDistance)
-					{
-						closestInters = intersection;
-						minDistance = distance;
-						minIndex = i;
-					}
-				}
-			}
+		Intersection closestIntersection = findClosestIntersection(node, ray);
+		
+		if(closestIntersection != null) {
+			minIndex = closestIntersection.getNodeIndex();
+			closestInters = closestIntersection.getCoordinate();
 		}
 
 		NodePoint result = null;
 		NodePoint prev = null;
 		NodePoint next = null;
 		Polygon polygon = null;
-		if (minIndex == -1)
+		
+		if (closestInters == null)
 		{
 			// noIntersection found
 			result = new NodePoint(circleX, circleY);
@@ -126,6 +112,34 @@ public class ShadowNodeConstructor
 		return null;
 	}
 
+	private Intersection findClosestIntersection(NodePoint node, LineString ray)
+	{
+		Intersection closestIntersection = null;
+		
+		double minDistance = Double.MAX_VALUE;
+		
+
+		// find closest intersection by testing against all segments
+		for (int i = 0; i < nodes.size(); i++)
+		{
+			LineString segmentNext = nodes.get(i).getLineToNextNode();
+			if (segmentNext.intersects(ray))
+			{
+				Coordinate intersection = segmentNext.intersection(ray).getCoordinate();
+				if (!node.equals2D(intersection))
+				{
+					double distance = intersection.distance(origin);
+					if (distance < minDistance)
+					{
+						closestIntersection = new Intersection(intersection, i);
+						minDistance = distance;
+					}
+				}
+			}
+		}
+		return closestIntersection;
+	}
+
 	public NodePointCollection getAllShadowNodes(ObstacleCollection obs)
 	{
 		VisibilityTester vis = new VisibilityTester(obs, origin);
@@ -150,3 +164,4 @@ public class ShadowNodeConstructor
 		return result;
 	}
 }
+
