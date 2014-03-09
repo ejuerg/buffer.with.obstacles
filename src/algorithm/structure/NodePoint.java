@@ -59,12 +59,12 @@ public class NodePoint extends Coordinate
 	public void setNextNode(NodePoint nextNode)
 	{
 		this.nextNode = nextNode;
-		
-		if(nextNode == null)  
+
+		if (nextNode == null)
 		{
 			return;
 		}
-		
+
 		if (nextNode.getNextNode() == null || !nextNode.getNextNode().equals(this))
 		{
 			nextNode.setPreviousNode(this);
@@ -79,12 +79,12 @@ public class NodePoint extends Coordinate
 	public void setPreviousNode(NodePoint previousNode)
 	{
 		this.previousNode = previousNode;
-		
-		if(previousNode == null)  
+
+		if (previousNode == null)
 		{
 			return;
 		}
-		
+
 		if (previousNode.getNextNode() == null || !previousNode.getNextNode().equals(this))
 		{
 			previousNode.setNextNode(this);

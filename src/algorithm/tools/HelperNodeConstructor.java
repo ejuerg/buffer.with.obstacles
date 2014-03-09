@@ -1,13 +1,13 @@
 package algorithm.tools;
 
+import algorithm.structure.NodePoint;
+import algorithm.structure.NodePointCollection;
+
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
 import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.Polygon;
-
-import algorithm.structure.NodePoint;
-import algorithm.structure.NodePointCollection;
 
 public class HelperNodeConstructor
 {

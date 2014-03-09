@@ -55,22 +55,22 @@ public class NodePointTest
 	public void testReplaceNextNode()
 	{
 		NodePoint nodePoint = new NodePoint(0, 0, previousNodePoint, nextNodePoint, null);
-		
+
 		nodePoint.setNextNode(replacementNodePoint);
 
 		assertTrue(nodePoint.getNextNode().equals(replacementNodePoint));
 	}
-	
+
 	@Test
 	public void testReplacePreviousNode()
 	{
 		NodePoint nodePoint = new NodePoint(0, 0, previousNodePoint, nextNodePoint, null);
-		
+
 		nodePoint.setPreviousNode(replacementNodePoint);
 
 		assertTrue(nodePoint.getPreviousNode().equals(replacementNodePoint));
 	}
-	
+
 	@Test
 	public void testBacklinkNextNode()
 	{
@@ -78,7 +78,7 @@ public class NodePointTest
 
 		assertTrue(nodePoint.getNextNode().getPreviousNode().equals(nodePoint));
 	}
-	
+
 	@Test
 	public void testBacklinkPreviousNode()
 	{
@@ -86,5 +86,5 @@ public class NodePointTest
 
 		assertTrue(nodePoint.getPreviousNode().getNextNode().equals(nodePoint));
 	}
-	
+
 }

@@ -51,8 +51,8 @@ public class Runner
 		this.nodes = new NodePointCollection();
 		this.origin = origin;
 		this.radius = radius;
-		this.obstacles = obs.queryObstacles(new Envelope(origin.x - radius, origin.x + radius, origin.y - radius, origin.y
-				+ radius));
+		this.obstacles = obs.queryObstacles(new Envelope(origin.x - radius, origin.x + radius, origin.y - radius,
+				origin.y + radius));
 
 		if (!obs.pointInObstacle(origin))
 		{

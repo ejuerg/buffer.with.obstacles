@@ -5,7 +5,6 @@ import java.util.Random;
 import java.util.Vector;
 
 import test.util.PolygonGenerator;
-
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
 import algorithm.tools.NodePointUtils;

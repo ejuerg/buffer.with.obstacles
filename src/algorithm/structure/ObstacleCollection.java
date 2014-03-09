@@ -2,13 +2,13 @@ package algorithm.structure;
 
 import java.util.List;
 
+import algorithm.runner.Runner;
+
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Envelope;
 import com.vividsolutions.jts.geom.Point;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.index.quadtree.Quadtree;
-
-import algorithm.runner.Runner;
 
 public class ObstacleCollection
 {
@@ -44,7 +44,7 @@ public class ObstacleCollection
 	@SuppressWarnings("unchecked")
 	public List<Polygon> getAllObstacles()
 	{
-		List<Polygon> queryAll = (List<Polygon>) obstacles.queryAll();
+		List<Polygon> queryAll = obstacles.queryAll();
 		return queryAll;
 	}
 

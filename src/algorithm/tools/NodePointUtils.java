@@ -1,10 +1,10 @@
 package algorithm.tools;
 
-import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.Polygon;
-
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
+
+import com.vividsolutions.jts.geom.Coordinate;
+import com.vividsolutions.jts.geom.Polygon;
 
 public class NodePointUtils
 {

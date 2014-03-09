@@ -41,11 +41,13 @@ public class VisualPolygon extends VisualGeometry
 		this.fill = fill;
 	}
 
+	@Override
 	public Color getOutline()
 	{
 		return outline;
 	}
 
+	@Override
 	public void setOutline(Color outline)
 	{
 		this.outline = outline;
@@ -56,11 +58,13 @@ public class VisualPolygon extends VisualGeometry
 		return coordinates;
 	}
 
+	@Override
 	public BasicStroke getStroke()
 	{
 		return stroke;
 	}
 
+	@Override
 	public void setStroke(BasicStroke stroke)
 	{
 		this.stroke = stroke;

@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.util.Vector;
 
 import test.util.PolygonGenerator;
-
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
 import algorithm.structure.ObstacleCollection;

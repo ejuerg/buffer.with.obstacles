@@ -10,6 +10,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.GeneralPath;
+import java.awt.geom.Path2D;
 import java.util.Vector;
 
 import javax.swing.JFrame;
@@ -46,6 +47,7 @@ public class Visualizer extends Applet
 		JFrame f = new JFrame("TestVisualizer");
 		f.addWindowListener(new WindowAdapter()
 		{
+			@Override
 			public void windowClosing(WindowEvent e)
 			{
 				System.exit(0);
@@ -58,12 +60,14 @@ public class Visualizer extends Applet
 		f.setVisible(true);
 	}
 
+	@Override
 	public void init()
 	{
 		setBackground(new Color(255, 255, 255));
 		this.setSize(xSize, ySize);
 	}
 
+	@Override
 	public void paint(Graphics g)
 	{
 		if (image == null)
@@ -71,7 +75,7 @@ public class Visualizer extends Applet
 			image = createImage(this.getSize().width, this.getSize().height);
 			graphics2D = (Graphics2D) image.getGraphics();
 		}
-		
+
 		clearGraphics();
 
 		drawPolygons();
@@ -104,15 +108,15 @@ public class Visualizer extends Applet
 	{
 		for (int i = 0; i < polygons.size(); i++)
 		{
-			VisualPolygon polygon  = polygons.get(i);
-			
+			VisualPolygon polygon = polygons.get(i);
+
 			Coordinate[] coords = polygon.getCoordinates();
 			double[] xCoords = new double[coords.length];
 			double[] yCoords = new double[coords.length];
 
 			fillCoordinateArrays(coords, xCoords, yCoords);
 
-			GeneralPath.Double polyline = new GeneralPath.Double(GeneralPath.WIND_EVEN_ODD, xCoords.length);
+			GeneralPath.Double polyline = new GeneralPath.Double(Path2D.WIND_EVEN_ODD, xCoords.length);
 			polyline.moveTo(xCoords[0], yCoords[0]);
 			for (int index = 1; index < xCoords.length; index++)
 			{
