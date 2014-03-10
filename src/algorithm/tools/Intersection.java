@@ -2,7 +2,7 @@ package algorithm.tools;
 
 import com.vividsolutions.jts.geom.Coordinate;
 
-class Intersection
+public class Intersection
 {
 	Coordinate coordinate;
 
@@ -14,12 +14,12 @@ class Intersection
 		this.nodeIndex = nodeIndex;
 	}
 
-	Coordinate getCoordinate()
+	public Coordinate getCoordinate()
 	{
 		return coordinate;
 	}
 
-	int getNodeIndex()
+	public int getNodeIndex()
 	{
 		return nodeIndex;
 	}
