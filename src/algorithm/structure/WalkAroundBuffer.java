@@ -9,7 +9,6 @@ import com.vividsolutions.jts.algorithm.Angle;
 import com.vividsolutions.jts.geom.Coordinate;
 import com.vividsolutions.jts.geom.Geometry;
 import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 
@@ -33,7 +32,8 @@ public class WalkAroundBuffer
 		if (a.equals(b) || a.equals(c) || b.equals(c))
 		{
 			return;
-		} else
+		}
+		else
 		{
 			Coordinate[] coords = new Coordinate[] { a, b, c, a };
 			add(coords);

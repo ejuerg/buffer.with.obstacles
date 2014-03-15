@@ -93,7 +93,8 @@ public class TestAlgorithm
 
 				}
 			}
-		} catch (Exception e)
+		}
+		catch (Exception e)
 		{
 			e.printStackTrace();
 		}

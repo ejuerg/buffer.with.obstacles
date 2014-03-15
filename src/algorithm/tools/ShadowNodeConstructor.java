@@ -54,8 +54,9 @@ public class ShadowNodeConstructor
 		int minIndex = -1;
 
 		Intersection closestIntersection = findClosestIntersection(node, ray);
-		
-		if(closestIntersection != null) {
+
+		if (closestIntersection != null)
+		{
 			minIndex = closestIntersection.getNodeIndex();
 			closestInters = closestIntersection.getCoordinate();
 		}
@@ -64,7 +65,7 @@ public class ShadowNodeConstructor
 		NodePoint prev = null;
 		NodePoint next = null;
 		Polygon polygon = null;
-		
+
 		if (closestInters == null)
 		{
 			// noIntersection found
@@ -72,7 +73,8 @@ public class ShadowNodeConstructor
 			prev = result;
 			next = result;
 			result.setBorderNode(true);
-		} else
+		}
+		else
 		{
 			next = nodes.get(minIndex).getNextNode();
 			prev = nodes.get(minIndex);
@@ -100,7 +102,8 @@ public class ShadowNodeConstructor
 				result.setShadow(true);
 				return result;
 			}
-		} else
+		}
+		else
 		{
 			node.setShadowNode(result);
 			result.setNextNode(next);
@@ -115,9 +118,8 @@ public class ShadowNodeConstructor
 	private Intersection findClosestIntersection(NodePoint node, LineString ray)
 	{
 		Intersection closestIntersection = null;
-		
+
 		double minDistance = Double.MAX_VALUE;
-		
 
 		// find closest intersection by testing against all segments
 		for (int i = 0; i < nodes.size(); i++)
@@ -164,4 +166,3 @@ public class ShadowNodeConstructor
 		return result;
 	}
 }
-

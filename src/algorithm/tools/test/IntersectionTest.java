@@ -1,13 +1,13 @@
 package algorithm.tools.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vividsolutions.jts.geom.Coordinate;
-
 import algorithm.tools.Intersection;
+
+import com.vividsolutions.jts.geom.Coordinate;
 
 public class IntersectionTest
 {
@@ -17,7 +17,7 @@ public class IntersectionTest
 	@Before
 	public void setUp() throws Exception
 	{
-		intersection = new Intersection(new Coordinate(0,0), 0);
+		intersection = new Intersection(new Coordinate(0, 0), 0);
 	}
 
 	@Test

@@ -65,7 +65,8 @@ public class TestPolygonGenerator
 			if (visTest.isVisible(p))
 			{
 				c = Color.green;
-			} else
+			}
+			else
 			{
 				c = Color.blue;
 			}

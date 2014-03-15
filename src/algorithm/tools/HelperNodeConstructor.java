@@ -71,7 +71,8 @@ public class HelperNodeConstructor
 				if (intersPrev.getNumGeometries() > 1)
 				{
 					constructTwoBorderNodes(borderNodes, current, oldPrev, intersPrev);
-				} else
+				}
+				else
 				{
 					constructOneBorderNode(borderNodes, current, oldPrev, intersPrev);
 				}
@@ -91,7 +92,8 @@ public class HelperNodeConstructor
 		if (current.equals2D(inters) || oldPrev.equals2D(inters))
 		{
 			// TODO intersection with either end, do nothing?
-		} else
+		}
+		else
 		{
 
 			current.setPreviousNode(border);
@@ -121,7 +123,8 @@ public class HelperNodeConstructor
 			current.setPreviousNode(border0);
 			border0.setPreviousNode(border1);
 			border1.setPreviousNode(oldPrev);
-		} else
+		}
+		else
 		{
 			current.setPreviousNode(border1);
 			border1.setPreviousNode(border0);

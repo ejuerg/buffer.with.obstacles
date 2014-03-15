@@ -77,7 +77,8 @@ public class Runner
 			constructArcSegments();
 
 			recursion();
-		} else
+		}
+		else
 		{
 			throw new PointInObstacleException();
 		}
@@ -180,27 +181,32 @@ public class Runner
 					{
 						// a segment with a border node on both ends
 						// we already handled this - it is a triangle
-					} else if (!isSpecialCase(current, prev))
+					}
+					else if (!isSpecialCase(current, prev))
 					{
 						// we need an arc
 						result.addArcSegment(origin, prev, current, radius);
 					}
-				} else if ((current.hasShadow() && !current.getShadowNode().isBorderNode())
+				}
+				else if ((current.hasShadow() && !current.getShadowNode().isBorderNode())
 						&& (prev.hasShadow() && !prev.getShadowNode().isBorderNode()))
 				{
 					// We may need a triangle
 					if (current.getPreviousNode().equals(prev) || current.getNextNode().equals(prev))
 					{
 						// no triangle needed
-					} else if (current.getShadowNode().getPreviousNode().equals(prev)
+					}
+					else if (current.getShadowNode().getPreviousNode().equals(prev)
 							|| current.getShadowNode().getNextNode().equals(prev))
 					{
 						// no triangle
-					} else if (prev.getShadowNode().getPreviousNode().equals(current)
+					}
+					else if (prev.getShadowNode().getPreviousNode().equals(current)
 							|| prev.getShadowNode().getNextNode().equals(current))
 					{
 						// no triangle
-					} else if (!isSpecialCase(current, prev))
+					}
+					else if (!isSpecialCase(current, prev))
 					{
 						// neighbors with a visible connection in between
 						result.addTriangle(origin, prev.getShadowNode(), current.getShadowNode());
@@ -210,7 +216,8 @@ public class Runner
 
 				prev = current;
 			}
-		} else
+		}
+		else
 		{
 			result.addCircle(origin, radius);
 		}
@@ -240,17 +247,20 @@ public class Runner
 				{
 					// System.out.println("special case");
 					return true;
-				} else
+				}
+				else
 				{
 					// System.out.println("not special case: angle");
 				}
-			} else
+			}
+			else
 			{
 				// System.out.println("not contain");
 				if (Angle.angleBetweenOriented(current, origin, prev) < 0)
 				{
 					// System.out.println("not special case: angle");
-				} else
+				}
+				else
 				{
 					// System.out.println("special case");
 					return true;
@@ -287,7 +297,8 @@ public class Runner
 								this.result.addGeometry(recRun.getResult().getPolygon());
 							}
 						}
-					} catch (Exception e)
+					}
+					catch (Exception e)
 					{
 						e.printStackTrace();
 					}

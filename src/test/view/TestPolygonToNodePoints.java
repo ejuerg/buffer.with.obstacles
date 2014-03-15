@@ -134,7 +134,8 @@ public class TestPolygonToNodePoints
 		if (r.isValid())
 		{
 			return r;
-		} else
+		}
+		else
 		{
 			return generateLinearRing(size);
 		}

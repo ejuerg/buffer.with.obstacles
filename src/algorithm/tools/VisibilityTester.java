@@ -86,7 +86,8 @@ public class VisibilityTester
 							{
 								numInters--;
 							}
-						} else
+						}
+						else
 						{
 							if (source.equals2D(intersections.getGeometryN(j).getCoordinate()))
 							{

@@ -69,11 +69,13 @@ public class PolygonGenerator
 			{
 				polys.add(result);
 				return result;
-			} else
+			}
+			else
 			{
 				return createPolygon();
 			}
-		} else
+		}
+		else
 		{
 			return createPolygon();
 		}

@@ -68,7 +68,8 @@ public class NodePointCollection
 			if (start < end && angle >= start && angle <= end)
 			{
 				newPoints.add(current);
-			} else if (start > end && angle >= start || angle <= end)
+			}
+			else if (start > end && angle >= start || angle <= end)
 			{
 				newPoints.add(current);
 			}
@@ -146,7 +147,8 @@ public class NodePointCollection
 		{
 			removePoint(coord);
 			return true;
-		} else
+		}
+		else
 		{
 			return false;
 		}
