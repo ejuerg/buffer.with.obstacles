@@ -30,9 +30,9 @@ public class WalkAroundBuffer
 
 	public void addTriangle(Coordinate a, Coordinate b, Coordinate c)
 	{
-		if (a.equals2D(b) || a.equals2D(c) || b.equals(c))
+		if (a.equals(b) || a.equals(c) || b.equals(c))
 		{
-
+			return;
 		} else
 		{
 			Coordinate[] coords = new Coordinate[] { a, b, c, a };
@@ -100,26 +100,6 @@ public class WalkAroundBuffer
 		return polys;
 	}
 
-	public Geometry getUnionedGeometry()
-	{
-		Geometry g = polys.get(0);
-
-		for (int i = 0; i < polys.size(); i++)
-		{
-			try
-			{
-				g = g.union(polys.get(i));
-			} catch (Exception e)
-			{
-				System.out.println("---------------");
-				System.out.println(polys.get(i));
-				System.out.println(e.getMessage());
-				testSelfIntersect(polys.get(i));
-			}
-		}
-		return g;
-	}
-
 	public Geometry getResultingGeometry()
 	{
 		Geometry[] polyArray = new Geometry[polys.size()];
@@ -157,30 +137,6 @@ public class WalkAroundBuffer
 				polys.add(other.get(i));
 			}
 		}
-	}
-
-	private boolean testSelfIntersect(Polygon poly)
-	{
-		Coordinate[] coords = poly.getCoordinates();
-
-		boolean intersects = false;
-
-		for (int i = 0; i < coords.length - 1; i++)
-		{
-			LineString line1 = fact.createLineString(new Coordinate[] { coords[i], coords[i + 1] });
-			for (int j = i + 1; j < coords.length - 1; j++)
-			{
-				LineString line2 = fact.createLineString(new Coordinate[] { coords[j], coords[j + 1] });
-				if (line1.intersects(line2) && !line1.intersection(line2).getCoordinate().equals2D(coords[j])
-						&& !line1.intersection(line2).getCoordinate().equals2D(coords[coords.length - 1]))
-				{
-					intersects = true;
-					System.out.println(line1 + " intersects " + line2);
-				}
-			}
-		}
-
-		return intersects;
 	}
 
 	public void addCircle(Coordinate origin, double radius)
