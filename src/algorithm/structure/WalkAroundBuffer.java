@@ -151,7 +151,6 @@ public class WalkAroundBuffer
 			angle += angleStepSize;
 		}
 		circlePoints.add(this.getPointOnCircle(origin, radius, Math.PI));
-		;
 
 		Coordinate[] coord = new Coordinate[circlePoints.size()];
 		for (int i = 0; i < circlePoints.size(); i++)
