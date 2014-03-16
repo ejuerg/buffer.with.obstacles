@@ -31,16 +31,16 @@ public class Runner
 	NodePointCollection shadowNodes;
 
 	WalkAroundBuffer result;
-	private FinishedNodesList finished;
+	private FinishedNodes finished;
 
 	public static final GeometryFactory FACTORY = new GeometryFactory();
 
 	public Runner(Coordinate origin, ObstacleCollection obs, double radius) throws PointInObstacleException
 	{
-		this(origin, obs, radius, new FinishedNodesList());
+		this(origin, obs, radius, new FinishedNodes());
 	}
 
-	protected Runner(Coordinate origin, ObstacleCollection obs, double radius, FinishedNodesList finished)
+	protected Runner(Coordinate origin, ObstacleCollection obs, double radius, FinishedNodes finished)
 			throws PointInObstacleException
 	{
 

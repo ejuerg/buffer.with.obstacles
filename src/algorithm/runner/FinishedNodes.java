@@ -4,12 +4,12 @@ import java.util.Hashtable;
 
 import com.vividsolutions.jts.geom.Coordinate;
 
-public class FinishedNodesList
+public class FinishedNodes
 {
 
 	private Hashtable<Coordinate, Double> nodeTable;
 
-	public FinishedNodesList()
+	public FinishedNodes()
 	{
 		nodeTable = new Hashtable<Coordinate, Double>();
 	}
