@@ -41,10 +41,7 @@ public class VisibilityTester
 	public boolean isVisible(NodePoint coord)
 	{
 		// bordering nodes are always visible from each other
-		if (coord.getPreviousNode().equals2D(source) || coord.getNextNode().equals2D(source))
-		{
-			return true;
-		}
+		isNeighbouringNode(coord);
 
 		Coordinate[] coords = new Coordinate[] { source, coord };
 
@@ -108,5 +105,21 @@ public class VisibilityTester
 			i++;
 		}
 		return noIntersection;
+	}
+
+	private boolean isNeighbouringNode(NodePoint coord)
+	{
+		NodePoint previous = coord.getPreviousNode();
+		NodePoint next = coord.getNextNode();
+		
+		if(next != null) {
+			return next.equals(source);
+		}
+		
+		if(previous != null) {
+			return previous.equals(source);
+		}
+
+		return false;
 	}
 }
