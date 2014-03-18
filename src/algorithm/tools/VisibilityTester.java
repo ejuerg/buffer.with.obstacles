@@ -111,12 +111,14 @@ public class VisibilityTester
 	{
 		NodePoint previous = coord.getPreviousNode();
 		NodePoint next = coord.getNextNode();
-		
-		if(next != null) {
+
+		if (next != null)
+		{
 			return next.equals(source);
 		}
-		
-		if(previous != null) {
+
+		if (previous != null)
+		{
 			return previous.equals(source);
 		}
 

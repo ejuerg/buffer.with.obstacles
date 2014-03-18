@@ -1,16 +1,15 @@
 package algorithm.structure.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vividsolutions.jts.geom.Coordinate;
-
 import algorithm.structure.NodePoint;
 import algorithm.structure.NodePointCollection;
+
+import com.vividsolutions.jts.geom.Coordinate;
 
 public class NodePointCollectionTest
 {
@@ -21,7 +20,7 @@ public class NodePointCollectionTest
 	@Before
 	public void setUp() throws Exception
 	{
-		origin = new Coordinate(0,0);
+		origin = new Coordinate(0, 0);
 	}
 
 	@Test
@@ -51,28 +50,29 @@ public class NodePointCollectionTest
 	@Test
 	public void testSortByAngleAlreadySorted()
 	{
-		NodePoint[] nodePoints = new NodePoint[] {new NodePoint(1,0), new NodePoint(1,1), new NodePoint(0,1)};
+		NodePoint[] nodePoints = new NodePoint[] { new NodePoint(1, 0), new NodePoint(1, 1), new NodePoint(0, 1) };
 		nodePointCollection = new NodePointCollection(nodePoints);
-		
+
 		nodePointCollection = nodePointCollection.sortByAngle(origin);
-		
+
 		assertEquals(nodePoints[0], nodePointCollection.get(0));
 		assertEquals(nodePoints[1], nodePointCollection.get(1));
 		assertEquals(nodePoints[2], nodePointCollection.get(2));
 	}
-	
+
 	@Test
 	public void testSortByAngle()
 	{
-		NodePoint[] nodePoints = new NodePoint[] {new NodePoint(-1,0), new NodePoint(1,1), new NodePoint(0,1), new NodePoint(-1,-1)};
+		NodePoint[] nodePoints = new NodePoint[] { new NodePoint(-1, 0), new NodePoint(1, 1), new NodePoint(0, 1),
+				new NodePoint(-1, -1) };
 		nodePointCollection = new NodePointCollection(nodePoints);
-		
+
 		nodePointCollection = nodePointCollection.sortByAngle(origin);
-		
+
 		assertEquals(nodePoints[3], nodePointCollection.get(0));
 		assertEquals(nodePoints[1], nodePointCollection.get(1));
 		assertEquals(nodePoints[2], nodePointCollection.get(2));
-		assertEquals(nodePoints[0], nodePointCollection.get(3));		
+		assertEquals(nodePoints[0], nodePointCollection.get(3));
 	}
 
 	@Test

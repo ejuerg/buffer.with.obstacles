@@ -1,13 +1,14 @@
 package algorithm.tools.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import com.vividsolutions.jts.geom.Coordinate;
-
 import algorithm.tools.HelperNodeConstructor;
+
+import com.vividsolutions.jts.geom.Coordinate;
 
 public class HelperNodeConstructorTest
 {
@@ -24,7 +25,7 @@ public class HelperNodeConstructorTest
 	public void testHelperNodeConstructor()
 	{
 		HelperNodeConstructor helperNodeConstructor = new HelperNodeConstructor(origin, 1);
-		
+
 		assertEquals(origin, helperNodeConstructor.getOrigin());
 		assertEquals(1, helperNodeConstructor.getRadius(), 0.00001);
 	}
@@ -33,10 +34,10 @@ public class HelperNodeConstructorTest
 	public void testSetOrigin()
 	{
 		HelperNodeConstructor helperNodeConstructor = new HelperNodeConstructor(origin, 1);
-		
-		Coordinate newOrigin = new Coordinate(1, 1);		
+
+		Coordinate newOrigin = new Coordinate(1, 1);
 		helperNodeConstructor.setOrigin(newOrigin);
-		
+
 		assertEquals(newOrigin, helperNodeConstructor.getOrigin());
 	}
 
@@ -44,10 +45,10 @@ public class HelperNodeConstructorTest
 	public void testSetRadius()
 	{
 		HelperNodeConstructor helperNodeConstructor = new HelperNodeConstructor(origin, 1);
-		
+
 		double newRadius = 2;
 		helperNodeConstructor.setRadius(newRadius);
-		
+
 		assertEquals(newRadius, helperNodeConstructor.getRadius(), 0.00001);
 	}
 
